@@ -4,8 +4,8 @@ ENV REFRESHED_AT 2016-02-17
 
 RUN mkdir -p /opt/service
 
-COPY serv_disc /opt/service/serv_disc
+COPY serv-detector /opt/service/serv-detector
 
 WORKDIR /opt/service
 
-ENTRYPOINT ["./serv_disc"]
+ENTRYPOINT ["./serv-detector"]

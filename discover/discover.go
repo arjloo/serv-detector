@@ -239,7 +239,7 @@ func (m *Monitor) PostMonitorCfgHandler(w http.ResponseWriter, r *http.Request) 
 	}else {
 		json.Unmarshal(b, &t)
 		m.tenantId = t.TenantId
-		m.peerAddr = "http://" + strings.Split(r.RemoteAddr, ":")[0] + ":" + t.Port + "/v1.0/monitor"
+		m.peerAddr = "http://" + strings.Split(r.RemoteAddr, ":")[0] + ":" + t.Port + "/api/v1.0/monitor"
 		fmt.Println(m.peerAddr)
 		w.Write(b)
 		w.WriteHeader(http.StatusOK)
