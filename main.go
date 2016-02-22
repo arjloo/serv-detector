@@ -2,11 +2,10 @@ package main
 
 import (
 	"time"
-
+	"net/http"
 	"./discover"
 
 	"github.com/gorilla/mux"
-	"net/http"
 )
 
 func main() {

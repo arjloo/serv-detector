@@ -9,7 +9,7 @@ import (
 
 // node info register into etcd
 type NodeInfo struct {
-	IP			string	`json:"ip"`
+	IP          string  `json:"ip"`
 	Service		string	`json:"service"`
 	Status		string	`json:"status"`
 }

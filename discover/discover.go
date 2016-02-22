@@ -8,12 +8,14 @@ import (
 	"io/ioutil"
 	"strings"
 	"bytes"
+	"fmt"
+	"errors"
 
 	"../common"
+
 	"github.com/coreos/etcd/client"
 	"github.com/coreos/etcd/Godeps/_workspace/src/golang.org/x/net/context"
 	"github.com/gorilla/mux"
-	"errors"
 )
 
 // node report status
@@ -169,6 +171,7 @@ func (m *Monitor) reportNode(n *Node) error {
     client := &http.Client{}
 	servNodes := m.assembleRptNode(n)
 	j, _ := json.Marshal(*servNodes)
+    fmt.Println(*servNodes)
 	request, _ := http.NewRequest("POST", m.peerAddr, bytes.NewBuffer(j))
 	request.Header.Set("Content-Type", "application/json")
 	res, err := client.Do(request)
@@ -237,6 +240,7 @@ func (m *Monitor) PostMonitorCfgHandler(w http.ResponseWriter, r *http.Request) 
 		json.Unmarshal(b, &t)
 		m.tenantId = t.TenantId
 		m.peerAddr = "http://" + strings.Split(r.RemoteAddr, ":")[0] + ":" + t.Port + "/v1.0/monitor"
+		fmt.Println(m.peerAddr)
 		w.Write(b)
 		w.WriteHeader(http.StatusOK)
 	}
@@ -277,7 +281,7 @@ func (m *Monitor) GetServInfoHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	servName := vars["serv_name"]
 	servNodes := m.GetNodesByNames([]string{servName})
-	j, _ := json.Marshal(servNodes)
+	j, _ := json.Marshal(*servNodes)
 	w.Write(j)
 	w.WriteHeader(http.StatusOK)
 }
